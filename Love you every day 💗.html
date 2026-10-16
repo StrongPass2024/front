@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="lo">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Love you every day 💗</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/font_lao.css">
+  <style>
+    :root {
+      --bg1: #40124f;
+      --bg2: #1b032b;
+      --bg3: #07000f;
+      --text: #ffe4f3;
+      --muted: #e9a9cc;
+      --pink: #ff5fa2;
+      --deep: #c2185b;
+      --card: rgba(255, 255, 255, .08);
+      --paper: #fff3f8;
+      --ink: #7a1245;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      color-scheme: dark
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg1: #40124f
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg1: #40124f
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0
+    }
+
+    body {
+      color: var(--text);
+      font-family: "Noto Sans Lao", "Phetsarath OT", "Leelawadee UI", system-ui, sans-serif;
+      background: #160023;
+      background: radial-gradient(ellipse at 50% 40%, var(--bg1), var(--bg2) 55%, var(--bg3));
+      overflow: hidden
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(2px 2px at 12% 18%, #fff, transparent), radial-gradient(2px 2px at 80% 12%, #fff, transparent), radial-gradient(2px 2px at 35% 35%, #fff, transparent), radial-gradient(2px 2px at 90% 55%, #fff, transparent), radial-gradient(2px 2px at 18% 75%, #fff, transparent), radial-gradient(2px 2px at 65% 85%, #fff, transparent), radial-gradient(2px 2px at 48% 8%, #fff, transparent);
+      animation: twinkle 3s ease-in-out infinite alternate
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: .35
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s, visibility 1s
+    }
+
+    .screen.active {
+      opacity: 1;
+      visibility: visible
+    }
+
+    /* ---------- Login + envelope ---------- */
+    h1 {
+      font-size: 1.5rem;
+      margin: 0 0 6px;
+      text-shadow: 0 0 18px var(--pink)
+    }
+
+    .sub {
+      color: var(--muted);
+      margin: 0 0 56px;
+      font-size: .95rem
+    }
+
+    .env {
+      position: relative;
+      width: 240px;
+      height: 160px;
+      margin-bottom: 40px;
+      animation: bob 3s ease-in-out infinite
+    }
+
+    @keyframes bob {
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .env>div {
+      position: absolute;
+      inset: 0
+    }
+
+    .env .back {
+      background: var(--deep);
+      border-radius: 6px;
+      box-shadow: 0 12px 40px rgba(255, 95, 162, .35)
+    }
+
+    .env .letter {
+      inset: 10px 14px;
+      background: var(--paper);
+      border-radius: 4px;
+      z-index: 1;
+      transition: transform .9s ease .6s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem
+    }
+
+    .env .pocket {
+      z-index: 2;
+      background: #e0407f;
+      border-radius: 6px;
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%)
+    }
+
+    .env .flap {
+      z-index: 3;
+      height: 62%;
+      bottom: auto;
+      background: var(--pink);
+      border-radius: 6px 6px 0 0;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform .9s ease, z-index 0s .45s
+    }
+
+    .env .seal {
+      z-index: 4;
+      inset: auto;
+      left: 50%;
+      top: 44%;
+      width: 38px;
+      height: 38px;
+      margin-left: -19px;
+      font-size: 1.8rem;
+      line-height: 38px;
+      transition: opacity .4s
+    }
+
+    .env.open .flap {
+      transform: rotateX(180deg);
+      z-index: 0
+    }
+
+    .env.open .letter {
+      transform: translateY(-90px)
+    }
+
+    .env.open .seal {
+      opacity: 0
+    }
+
+    .env.open {
+      animation: none
+    }
+
+    .box {
+      display: flex;
+      gap: 8px;
+      width: min(320px, 100%)
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .25);
+      background: var(--card);
+      color: var(--text);
+      font: inherit;
+      outline: none
+    }
+
+    input:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(255, 95, 162, .3)
+    }
+
+    button {
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--pink), var(--deep));
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer
+    }
+
+    button:active {
+      transform: scale(.96)
+    }
+
+    .err {
+      min-height: 1.4em;
+      margin: 12px 0 0;
+      color: #ff9db8;
+      font-size: .9rem
+    }
+
+    .hint {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .8rem;
+      opacity: .75
+    }
+
+    .shake {
+      animation: shake .45s
+    }
+
+    @keyframes shake {
+
+      20%,
+      60% {
+        transform: translateX(-8px)
+      }
+
+      40%,
+      80% {
+        transform: translateX(8px)
+      }
+    }
+
+    /* ---------- Love page ---------- */
+    #love h2 {
+      font-size: 1.6rem;
+      margin: 0 0 24px;
+      text-shadow: 0 0 18px var(--pink)
+    }
+
+    #lines  {
+      margin: 0 0 16px;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 1.2s, transform 1.2s
+    }
+
+    #lines p.show {
+      opacity: 1;
+      transform: none
+    }
+
+    #lines p.last {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pink);
+      text-shadow: 0 0 14px rgba(255, 95, 162, .7)
+    }
+
+    #hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 2
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 0 6px rgba(255, 95, 162, .8))
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0) scale(.6);
+        opacity: 0
+      }
+
+      10% {
+        opacity: 1
+      }
+
+      50% {
+        transform: translateY(-55vh) translateX(var(--sway)) scale(1)
+      }
+
+      100% {
+        transform: translateY(-115vh) translateX(calc(var(--sway)*-1)) scale(1.1);
+        opacity: 0
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .stars,
+      .env {
+        animation: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <section id="login" class="screen active">
+    <h1>💌 ມີຈົດໝາຍຮັກສົ່ງເຖິງເຈົ້າ</h1>
+    <p class="sub">ໃສ່ລະຫັດຜ່ານເພື່ອເປີດອ່ານ</p>
+    <div class="env" id="env">
+      <div class="back"></div>
+      <div class="letter">💗</div>
+      <div class="pocket"></div>
+      <div class="flap"></div>
+      <div class="seal">💗</div>
+    </div>
+    <div class="box" id="box">
+      <input id="pw" type="password" placeholder="ລະຫັດຜ່ານ" autocomplete="off">
+      <button id="go" type="button">ເປີດ</button>
+    </div>
+    <p class="err" id="err"></p>
+  </section>
+
+  <section id="love" class="screen">
+    <h2>💗 ເຖິງທີ່ຮັກ 💗</h2>
+    <div id="lines"></div>
+  </section>
+
+  <div id="hearts"></div>
+
+  <script>
+    // ===== ແກ້ໄຂຕົງນີ້ =====
+    var PASSWORD = "cherry";
+    var LINES = [
+      "Hi  cherry",
+      "ຂອບໃຈທີ່ຢູ່ຂ້າງກັນສະເໝີ",
+      "ທີ່ຜ່ານມາເຂົາເຮັດໃຫ້ເພີ່ນໃຫ້  ເພີ່ນເສຍໃຈເສຍຄວາມຮູ້ສຶກ",
+      "ເຂົາຂໍໂທດ ຂອບໃຈທີ່ຢູ່ຂ້າງກັນຜ່ານມາາຕະຫຼອດ ",
+      "Love you every day 💗"
+    ];
+    // =======================
+    var $ = function (id) {return document.getElementById(id);};
+    var opened = false;
+
+    function tryOpen() {
+      if (opened) return;
+      if ($("pw").value.trim().toLowerCase() === PASSWORD.toLowerCase()) {
+        opened = true;
+        $("err").textContent = "";
+        $("env").classList.add("open");
+        setTimeout(function () {
+          $("login").classList.remove("active");
+          $("love").classList.add("active");
+          startLines();
+          startHearts();
+        }, 2300);
+      } else {
+        $("err").textContent = "ລະຫັດບໍ່ຖືກ ລອງໃໝ່ອີກຄັ້ງນະ 💔";
+        var b = $("box");
+        b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+      }
+    }
+    $("go").addEventListener("click", tryOpen);
+    $("pw").addEventListener("keydown", function (e) {if (e.key === "Enter") tryOpen();});
+
+    function startLines() {
+      var wrap = $("lines");
+      LINES.forEach(function (t, i) {
+        var p = document.createElement("p");
+        p.textContent = t;
+        if (i === LINES.length - 1) p.className = "last";
+        wrap.appendChild(p);
+        setTimeout(function () {p.classList.add("show");}, 900 + i * 1800);
+      });
+    }
+
+    var EMOJI = ["💗", "💖", "💕", "💘", "❤️", "💓"];
+    function spawnHeart() {
+      var h = document.createElement("span");
+      h.className = "heart";
+      h.textContent = EMOJI[Math.floor(Math.random() * EMOJI.length)];
+      h.style.left = (5 + Math.random() * 90) + "vw";
+      h.style.fontSize = (18 + Math.random() * 28) + "px";
+      h.style.animationDuration = (6 + Math.random() * 5) + "s";
+      h.style.setProperty("--sway", (Math.random() * 60 - 30) + "px");
+      $("hearts").appendChild(h);
+      setTimeout(function () {h.remove();}, 12000);
+    }
+    function startHearts() {
+      // ຫົວໃຈລອຍຂຶ້ນມາເທື່ອລະໂຕ
+      spawnHeart();
+      setInterval(spawnHeart, 800);
+    }
+  </script>
+</body>
+
+</html>
